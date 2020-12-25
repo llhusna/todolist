@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+  <title>TO-DO list project</title>
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Marmelad&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style3.css">
+</head>
+
+<body>
+	<div class="headContainer">
+		<h1><span class="title">TO-DO</span> list</h1>
+	    <p>Welcome to my to-do list application</p>
+	</div>
+
+	<div class="keyinContainer">
+		<div class="addTask">
+		<input type="text" placeholder="Add new task">
+		<span onclick="newElement()"></span>
+		<button type="addBtn">Add</button>
+	  </div>
+	</div>
+
+	<div class="listContainer">
+		<ol class="notCompleted">
+			<h3>Pending list</h3>
+		</ol>
+	   <!--2------------->
+		<ol class="Completed">
+			<h3>Completed</h3>
+		</ol>
+	</div>
+
+<script>
+		const input = document.querySelector('input');
+		const btn = document.querySelector('.addTask > button');
+
+		btn.addEventListener('click', addList);  //document.addEventListener(event, function, useCapture) - syntax
+		input.addEventListener('keyup', (e)=>{
+			(e.keyCode === 13 ? addList(e) : null);
+		})
+
+		function addList(e){
+			const notCompleted = document.querySelector('.notCompleted');
+			const Completed = document.querySelector('.Completed');
+
+			const newLi = document.createElement('li');
+			const checkBtn = document.createElement('button'); //tengok ni
+			const delBtn = document.createElement('button');  //tengok ni
+
+			checkBtn.innerHTML = '<i class="fa fa-check"></i>';
+			delBtn.innerHTML = '<i class="fa fa-trash"></i>';
+
+
+			if(input.value !==''){
+				newLi.textContent = input.value;
+				input.value = '';
+				notCompleted.appendChild(newLi); 
+				newLi.appendChild(checkBtn); 
+				newLi.appendChild(delBtn);  
+			}
+
+			checkBtn.addEventListener('click', function(){
+				const parent = this.parentNode;
+				parent.remove();
+				Completed.appendChild(parent);
+				checkBtn.style.display = 'none';
+			});
+
+			delBtn.addEventListener('click', function(){
+				const parent = this.parentNode;
+				parent.remove();
+			});
+		}
+
+	</script>
+</body>
+
+</html>
